@@ -22,5 +22,5 @@ printf %s "server {
 }
 " >/etc/nginx/sites-available/default
 echo "Holberton School" >/var/www/html/index.html
-echo "Ceci n'est pas une page" >/var/www/html/404.html
+printf %s "Ceci n'est pas une page\n" >/var/www/html/404.html
 service nginx restart
