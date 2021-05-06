@@ -5,9 +5,9 @@ apt-get update
 apt-get install -y nginx
 
 printf %s "server {
-  listen      80 default_server;
-  root        /var/www/html;
-  index       index.html index.htm;
+  listen  80 default_server;
+  root    /var/www/html;
+  index   index.html index.htm;
 
   location /redirect_me {
     return 301 http://github.com/prohence;
@@ -15,3 +15,4 @@ printf %s "server {
 }
 " >/etc/nginx/sites-available/default
 echo "Holberton School" >/var/www/html/index.html
+service nginx restart
