@@ -11,3 +11,4 @@ printf %s "server {
 }
 " >/etc/nginx/sites-available/default
 echo "Holberton School" >/var/www/html/index.html
+service nginx restart
