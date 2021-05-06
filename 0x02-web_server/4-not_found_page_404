@@ -6,7 +6,6 @@ apt-get install -y nginx
 
 printf %s "server {
   listen  80 default_server;
-  listen [::]:80 default_server;
   root    /var/www/html;
   index   index.html index.htm;
 
@@ -22,5 +21,5 @@ printf %s "server {
 }
 " >/etc/nginx/sites-available/default
 echo "Holberton School" >/var/www/html/index.html
-printf %s "Ceci n'est pas une page\n" >/var/www/html/404.html
+printf "%s\n" "Ceci n'est pas une page" >/var/www/html/404.html
 service nginx restart
