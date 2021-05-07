@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# DOMAIN & SUBDOMAINS INFORMATIONS
+
+getInformation() {
+  line=$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '\t' ' ')
+  echo "$2 $line" | awk '{print "The subdomain " $1 " is a " $5 " record and points to " $6}'
+}
+
+if [ "$#" == 1 ]; then
+  for sd in 'www' 'lb-01' 'web-01' 'web-02'; do
+    getInformation "$1" $sd
+  done
+elif [ "$#" == 2 ]; then
+  getInformation "$1" "$2"
+fi
