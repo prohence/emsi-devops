@@ -4,17 +4,38 @@
 apt-get update
 apt-get install -y haproxy
 
-echo 'ENABLED=1' >> /etc/default/haproxy
+echo 'ENABLED=1' >>/etc/default/haproxy
 
-printf %s "backend app_server
-  balance roundrobin
-  server 3157-web-01 35.229.49.186:80 check
-  server 3157-web-02 35.190.162.166:80 check
+printf %s "global
+  log 127.0.0.1 local0
+  log 127.0.0.1 local0 notice
+  maxconn       2048
+  user          haproxy
+  group         haproxy
+  daemon
 
-frontend lb_server
-  bind 0.0.0.0:80
-  mode http
+defaults
+  log     global
+  mode    http
+  option  httpclose
+  option  httplog
+  option  dontlognull
+  retries 3
+  option  redispatch
+	timeout connect 5s
+	timeout client  30s
+	timeout server  30s
+	timeout queue   10s
+
+frontend lb_serv
+  bind  0.0.0.0:80
+  mode  http
   default_backend app_server
-" >> /etc/haproxy/haproxy.cfg
+
+backend app_server
+    balance roundrobin
+    server  3157-web-01 35.229.49.186:80 check
+    server  3157-web-02 35.190.162.166:80 check
+" >/etc/haproxy/haproxy.cfg
 
 service haproxy restart
