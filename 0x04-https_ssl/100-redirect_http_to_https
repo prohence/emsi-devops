@@ -1,0 +1,37 @@
+global
+    log /dev/log local0
+    log /dev/log local1 notice
+    chroot /var/lib/haproxy
+    user haproxy
+    group haproxy
+    daemon
+    tune.ssl.default-dh-param 2048
+
+defaults
+    log global
+    mode http
+    option httplog
+    option dontlognull
+    timeout connect 5000
+    timeout client 50000
+    timeout server 50000
+
+frontend lb-server
+    bind *:80
+    default_backend app-server
+
+frontend lb-server-https
+    bind *:443 ssl crt /etc/letsencrypt/elhadiri.tech.pem
+    reqadd X-Forwarded-Proto:\ https
+    acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+    use_backend letsencrypt-backend if letsencrypt-acl
+    default_backend app-server
+
+backend app-server
+    balance roundrobin
+    redirect scheme https if !{ ssl_fc }
+    server 3157-web-01 35.229.49.186:80 check
+    server 3157-web-02 35.190.162.166:80 check
+
+backend letsencrypt-backend
+    server letsencrypt 127.0.0.1:8080
