@@ -36,6 +36,8 @@ root@ubuntu:/home/omar# ufw allow from 35.229.49.186 to any port 22
 La règle a été ajoutée
 root@ubuntu:/home/omar# ufw allow from 35.229.49.186 to any port 80
 La règle a été ajoutée
+root@ubuntu:/home/omar# ufw allow from 35.229.49.186 to any port 443
+La règle a été ajoutée
 root@ubuntu:/home/omar# ufw status
 État : actif
 
@@ -47,9 +49,10 @@ Vers                       Action      De
 Anywhere                   ALLOW       35.229.49.186             
 22                         ALLOW       35.229.49.186             
 80                         ALLOW       35.229.49.186             
+443                        ALLOW       35.229.49.186             
 22 (v6)                    ALLOW       Anywhere (v6)             
 443 (v6)                   ALLOW       Anywhere (v6)             
-80 (v6)                    ALLOW       Anywhere (v6)             
+80 (v6)                    ALLOW       Anywhere (v6)          
 
 root@ubuntu:/home/omar# exit
 
