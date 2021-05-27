@@ -1,58 +1,14 @@
-omar@ubuntu:~$ sudo su root
-root@ubuntu:/home/omar# 
-root@ubuntu:/home/omar# 
-root@ubuntu:/home/omar# ufw status
-État : inactif
-root@ubuntu:/home/omar# ufw enable
-Le pare-feu est actif et lancé au démarrage du système
-root@ubuntu:/home/omar# 
-root@ubuntu:/home/omar# ufw status
-État : actif
-root@ubuntu:/home/omar# ufw allow 22
-La règle a été ajoutée
-La règle a été ajoutée (v6)
-root@ubuntu:/home/omar# ufw allow 443
-La règle a été ajoutée
-La règle a été ajoutée (v6)
-root@ubuntu:/home/omar# ufw allow 80
-La règle a été ajoutée
-La règle a été ajoutée (v6)
-root@ubuntu:/home/omar# ufw status
-État : actif
+#!/usr/bin/env bash
+# UFW SETUP
 
-Vers                       Action      De
-----                       ------      --
-22                         ALLOW       Anywhere                  
-443                        ALLOW       Anywhere                  
-80                         ALLOW       Anywhere                  
-22 (v6)                    ALLOW       Anywhere (v6)             
-443 (v6)                   ALLOW       Anywhere (v6)             
-80 (v6)                    ALLOW       Anywhere (v6)  
+sudo apt-get update
+sudo apt-get install ufw -y
 
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
 
-root@ubuntu:/home/omar# ufw allow from 35.229.49.186 
-La règle a été ajoutée
-root@ubuntu:/home/omar# ufw allow from 35.229.49.186 to any port 22
-La règle a été ajoutée
-root@ubuntu:/home/omar# ufw allow from 35.229.49.186 to any port 80
-La règle a été ajoutée
-root@ubuntu:/home/omar# ufw allow from 35.229.49.186 to any port 443
-La règle a été ajoutée
-root@ubuntu:/home/omar# ufw status
-État : actif
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
 
-Vers                       Action      De
-----                       ------      --
-22                         ALLOW       Anywhere                  
-443                        ALLOW       Anywhere                  
-80                         ALLOW       Anywhere                  
-Anywhere                   ALLOW       35.229.49.186             
-22                         ALLOW       35.229.49.186             
-80                         ALLOW       35.229.49.186             
-443                        ALLOW       35.229.49.186             
-22 (v6)                    ALLOW       Anywhere (v6)             
-443 (v6)                   ALLOW       Anywhere (v6)             
-80 (v6)                    ALLOW       Anywhere (v6)          
-
-root@ubuntu:/home/omar# exit
-
+sudo ufw enable
