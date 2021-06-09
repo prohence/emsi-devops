@@ -30,8 +30,8 @@ frontend lb-server-https
 backend app-server
     balance roundrobin
     redirect scheme https if !{ ssl_fc }
-    server 3157-web-01 35.229.49.186:80 check
-    server 3157-web-02 35.190.162.166:80 check
+    server 3157-web-01 54.89.69.183:80 check
+    server 3157-web-02 35.196.147.250:80 check
 
 backend letsencrypt-backend
     server letsencrypt 127.0.0.1:8080
